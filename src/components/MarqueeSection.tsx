@@ -1,6 +1,5 @@
 import { useRef, useEffect, useState } from 'react'
 
-// Tech-themed and project images for the marquee
 const IMAGES = [
   { id: 0, src: '/images/tech/servers.png', alt: 'Server infrastructure' },
   { id: 1, src: '/images/projects/concierge-dashboard.png', alt: 'Concierge AI dashboard' },
@@ -22,15 +21,22 @@ function MarqueeRow({ images, offset, direction }: { images: typeof IMAGES; offs
   const translateX = direction === 1 ? offset - 200 : -(offset - 200)
 
   return (
-    <div className="flex gap-3 overflow-visible" style={{ willChange: 'transform', transform: `translateX(${translateX}px)` }}>
+    <div
+      className="flex gap-4 overflow-visible"
+      style={{ willChange: 'transform', transform: `translateX(${translateX}px)` }}
+    >
       {tripled.map((img, i) => (
         <img
           key={i}
           src={img.src}
           alt={img.alt}
           loading="lazy"
-          className="rounded-2xl object-cover flex-shrink-0"
-          style={{ width: 420, height: 270 }}
+          className="rounded-2xl object-cover flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-700 cursor-pointer hover:scale-[1.02]"
+          style={{
+            width: 420,
+            height: 270,
+            border: '1px solid rgba(94, 234, 212, 0.05)',
+          }}
         />
       ))}
     </div>
@@ -56,10 +62,10 @@ export default function MarqueeSection() {
   return (
     <section
       ref={sectionRef}
-      className="pt-24 sm:pt-32 md:pt-40 pb-10 overflow-hidden"
-      style={{ background: '#0C0C0C' }}
+      className="pt-24 sm:pt-32 md:pt-40 pb-10 overflow-hidden marquee-mask"
+      style={{ background: '#05070a' }}
     >
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-4">
         <MarqueeRow images={ROW1} offset={offset} direction={1} />
         <MarqueeRow images={ROW2} offset={offset} direction={-1} />
       </div>

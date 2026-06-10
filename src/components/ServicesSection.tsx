@@ -1,4 +1,5 @@
-import FadeIn from './FadeIn'
+import { motion } from 'framer-motion'
+import SectionHeading from './SectionHeading'
 
 const SERVICES = [
   {
@@ -47,43 +48,44 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="bg-white rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32"
+      className="px-5 sm:px-8 md:px-10 py-24 sm:py-32 md:py-40 relative"
+      style={{ background: '#05070a' }}
     >
-      <FadeIn>
-        <h2
-          className="font-black uppercase text-center text-[#0C0C0C] mb-16 sm:mb-20 md:mb-28"
-          style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
-        >
-          Services
-        </h2>
-      </FadeIn>
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-[60%]"
+        style={{
+          background: 'linear-gradient(90deg, transparent, rgba(94, 234, 212, 0.15), transparent)',
+        }}
+      />
 
-      <div className="max-w-5xl mx-auto divide-y divide-[#0C0C0C]/10">
+      <SectionHeading className="mb-16 sm:mb-20 md:mb-24">Services</SectionHeading>
+
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
         {SERVICES.map((svc, i) => (
-          <FadeIn key={svc.num} delay={i * 0.1}>
-            <div className="flex items-center gap-6 md:gap-10 py-8 sm:py-10 md:py-12">
-              <span
-                className="font-black text-[#0C0C0C] leading-none flex-shrink-0"
-                style={{ fontSize: 'clamp(3rem, 10vw, 140px)' }}
-              >
-                {svc.num}
-              </span>
-              <div className="flex flex-col gap-1">
-                <span
-                  className="font-medium uppercase text-[#0C0C0C]"
-                  style={{ fontSize: 'clamp(1rem, 2.2vw, 2.1rem)' }}
-                >
-                  {svc.name}
-                </span>
-                <span
-                  className="font-light leading-relaxed max-w-2xl text-[#0C0C0C] opacity-60"
-                  style={{ fontSize: 'clamp(0.85rem, 1.6vw, 1.25rem)' }}
-                >
-                  {svc.desc}
-                </span>
-              </div>
-            </div>
-          </FadeIn>
+          <motion.div
+            key={svc.num}
+            className="glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 cursor-pointer group"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '50px' }}
+            transition={{ duration: 0.6, delay: i * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            <span className="text-[#5eead4] font-heading font-bold text-sm tracking-wider mb-3 block">
+              {svc.num}
+            </span>
+            <h3
+              className="text-[#e2e8f0] font-heading font-semibold mb-2 group-hover:text-[#5eead4] transition-colors duration-300"
+              style={{ fontSize: 'clamp(1rem, 2vw, 1.35rem)' }}
+            >
+              {svc.name}
+            </h3>
+            <p
+              className="text-[#94a3b8] font-light leading-relaxed"
+              style={{ fontSize: 'clamp(0.8rem, 1.3vw, 0.95rem)' }}
+            >
+              {svc.desc}
+            </p>
+          </motion.div>
         ))}
       </div>
     </section>
